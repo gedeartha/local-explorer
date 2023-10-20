@@ -13,7 +13,7 @@
 </head>
 
 <body class="bg-gray-100 w-full h-full">
-    <header class="bg-gray-100 w-full shadow-md">
+    <header class="bg-gray-100 w-full shadow-md px-4 sm:px-6">
         <div class="container mx-auto">
             <div class="flex justify-between items-center h-16">
                 <a href="/" class="left flex space-x-3 items-center">
@@ -25,16 +25,16 @@
         </div>
     </header>
 
-    <div class="content container mx-auto py-6">
+    <div class="content container mx-auto py-6 px-4 sm:px-6">
 
-        <div class="text-xl font-semibold tracking-wide mt-4">Documents {{ $document->document }}</div>
+        <div class="text-xl font-semibold tracking-wide sm:mt-4">Documents {{ $document->document }}</div>
 
 
         <nav class="flex mt-2" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-2">
+            <ol class="inline-flex items-center sm:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600">
-                        <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    <a href="/" class="inline-flex items-center text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">
+                        <svg class="w-2 h-2 sm:w-3 sm:h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
@@ -44,22 +44,22 @@
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <svg class="w-3 h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
+                        <svg class="w-2 h-2 sm:w-3 sm:h-3 text-gray-500 mx-1 sm:mr-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="#" class="text-sm font-medium text-gray-500 hover:text-blue-600">{{ $document->document }}</a>
+                        <a href="#" class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">{{ $document->document }}</a>
                     </div>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <svg class="w-3 h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
+                        <svg class="w-2 h-2 sm:w-3 sm:h-3 text-gray-500 mx-1 sm:mr-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="#" class="text-sm font-medium text-gray-500 hover:text-blue-600">Folders</a>
+                        <a href="#" class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">Folders</a>
                     </div>
                 </li>
             </ol>
@@ -122,9 +122,9 @@
             </button> --}}
         </div>
 
-        <div class="text-base font-medium tracking-wide mt-2">Folders</div>
+        <div class="text-base font-medium tracking-wide mt-4">Folders</div>
 
-        <div class="grid grid-cols-12 gap-4 mt-2">
+        <div class="grid grid-cols-4 sm:grid-cols-12 gap-4 mt-2">
 
             @forelse ($folders as $folder)
 

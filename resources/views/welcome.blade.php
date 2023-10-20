@@ -12,8 +12,8 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100 w-full h-full px-2 sm:px-6">
-    <header class="bg-gray-100 w-full shadow-md">
+<body class="bg-gray-100 w-full h-full">
+    <header class="bg-gray-100 w-full shadow-md px-4 sm:px-6">
         <div class="container mx-auto">
             <div class="flex justify-between items-center h-16">
                 <a href="/" class="left flex space-x-3 items-center">
@@ -25,9 +25,9 @@
         </div>
     </header>
 
-    <div class="content container mx-auto py-6">
+    <div class="content container mx-auto py-6 px-4 sm:px-6">
 
-        <div class="text-xl font-semibold tracking-wide mt-4">Documents</div>
+        <div class="text-xl font-semibold tracking-wide sm:mt-4">Documents</div>
         <div class="border-b border-b-gray-300 mt-4 mb-4"></div>
 
         {{-- Warning Alert --}}
@@ -84,11 +84,12 @@
             </button> --}}
         </div>
 
-        <div class="text-base font-medium tracking-wide mt-2">Folders</div>
+        <div class="text-base font-medium tracking-wide mt-4">Folders</div>
 
-        <div class="grid grid-cols-12 gap-4 mt-2">
+        <div class="grid grid-cols-4 sm:grid-cols-12 gap-4 mt-2">
 
             @forelse ($documents as $document)
+            
             <button data-modal-target="modal-login" data-modal-toggle="modal-login"
                 onclick="toggleModal('{{ $document->document }}')"
                 class="col-span-2 rounded-lg bg-gray-200 p-2 flex flex-col">

@@ -13,7 +13,7 @@
 </head>
 
 <body class="bg-gray-100 w-full h-full">
-    <header class="bg-gray-100 w-full shadow-md">
+    <header class="bg-gray-100 w-full shadow-md px-4 sm:px-6">
         <div class="container mx-auto">
             <div class="flex justify-between items-center h-16">
                 <a href="/" class="left flex space-x-3 items-center">
@@ -25,15 +25,15 @@
         </div>
     </header>
 
-    <div class="content container mx-auto py-6">
+    <div class="content container mx-auto py-6 px-4 sm:px-6">
 
-        <div class="text-xl font-semibold tracking-wide mt-4">Files {{ $folder->folder_name }}</div>
+        <div class="text-xl font-semibold tracking-wide sm:mt-4">Files {{ $folder->folder_name }}</div>
 
 
         <nav class="flex mt-2" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-2">
+            <ol class="inline-flex items-center sm:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600">
+                    <a href="/" class="inline-flex items-center text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">
                         <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -44,34 +44,34 @@
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <svg class="w-3 h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
+                        <svg class="w-2 h-2 sm:w-3 sm:h-3 text-gray-500 mx-1 sm:mr-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="/folders" class="text-sm font-medium text-gray-500 hover:text-blue-600">{{
+                        <a href="/folders" class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">{{
                             $document->document }}</a>
                     </div>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <svg class="w-3 h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
+                        <svg class="w-2 h-2 sm:w-3 sm:h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
                         <a href="{{ route('files', $folder->id) }}"
-                            class="text-sm font-medium text-gray-500 hover:text-blue-600">{{ $folder->folder_name }}</a>
+                            class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">{{ $folder->folder_name }}</a>
                     </div>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <svg class="w-3 h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
+                        <svg class="w-2 h-2 sm:w-3 sm:h-3 text-gray-500 mx-1 mr-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="#" class="text-sm font-medium text-gray-500 hover:text-blue-600">Files</a>
+                        <a href="#" class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">Files</a>
                     </div>
                 </li>
             </ol>
@@ -154,21 +154,21 @@
             </button> --}}
         </div>
 
-        <div class="text-base font-medium tracking-wide mt-2 mb-2">All Files</div>
+        <div class="text-base font-medium tracking-wide mt-4 mb-2">All Files</div>
 
 
         <div class="relative overflow-x-auto shadow-md rounded-lg border-t-2">
-            <table class="w-full text-sm text-left text-gray-500">
+            <table class="w-full text-sm text-left text-gray-500 table-auto">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Name
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Created At
+                            Date&nbsp;Uploaded
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            File Type
+                            File&nbsp;Type
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
                             Action
@@ -182,7 +182,12 @@
                             {{ $file->files_name }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $file->created_at }}
+                            {{-- {{ $file->created_at }} --}}
+                            @php
+                            $dateGet = $file->created_at;
+                            $date = date('d M Y h:i', strtotime($dateGet));
+                            @endphp
+                            {{ $date }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $file->files_type }}
