@@ -42,17 +42,19 @@ class FileController extends Controller
                 ->where('id', $folder->document_id)
                 ->first();
 
+            $randomNumber = random_int(1000, 9999);
+
             // Upload file
             $file = $request->file('file_input');
             $fileNameExt = $file->getClientOriginalName();
-            $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME);
+            $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
             // $fileNameDate = pathinfo($fileNameExt, PATHINFO_FILENAME).' - '.date('H:i:s d-m-Y');
             $fileType = $file->getClientOriginalExtension();
-            $fileNameDate = pathinfo($fileNameExt, PATHINFO_FILENAME).' '.date('Y-m-d_His').'.'.$fileType;
+            $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
 
             $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
 
-            $file->storeAs($save_as, $fileNameDate);
+            $file->storeAs($save_as, $fileNameSave);
 
             // Save
             $post = File::create([
@@ -102,11 +104,11 @@ class FileController extends Controller
 
         $getDate = date('Y-m-d', strtotime($date));
         $getTime = date('His', strtotime($date));
-
         
         $storagePath = 'app/documents/'.$file->document_name.'/'.$file->folder_name.'/';
-        $fileNameDateExt = $file->files_name .' '. $getDate .'_'. $getTime .'.'. $file->files_type;
+        // $fileNameDateExt = $file->files_name .' '. $getDate .'_'. $getTime .'.'. $file->files_type;
+        $fileNameExt = $file->files_name .'.'. $file->files_type;
 
-        return response()->download(storage_path($storagePath.$fileNameDateExt));
+        return response()->download(storage_path($storagePath.$fileNameExt));
     }
 }

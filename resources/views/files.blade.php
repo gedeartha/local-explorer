@@ -185,7 +185,7 @@
                             {{-- {{ $file->created_at }} --}}
                             @php
                             $dateGet = $file->created_at;
-                            $date = date('d M Y h:i', strtotime($dateGet));
+                            $date = date('d M Y H:i', strtotime($dateGet));
                             @endphp
                             {{ $date }}
                         </td>
