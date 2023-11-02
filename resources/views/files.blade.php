@@ -33,7 +33,8 @@
         <nav class="flex mt-2" aria-label="Breadcrumb">
             <ol class="inline-flex items-center sm:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="/" class="inline-flex items-center text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">
+                    <a href="/"
+                        class="inline-flex items-center text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">
                         <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -61,7 +62,8 @@
                                 d="m1 9 4-4-4-4" />
                         </svg>
                         <a href="{{ route('files', $folder->id) }}"
-                            class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">{{ $folder->folder_name }}</a>
+                            class="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600">{{
+                            $folder->folder_name }}</a>
                     </div>
                 </li>
                 <li>
@@ -95,6 +97,22 @@
         @endif
         {{-- Success Alert --}}
 
+        {{-- Warning Alert --}}
+        @if (session('warning'))
+        <div class="flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg shadow-md" role="alert">
+            <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"></path>
+            </svg>
+            <div>
+                <span class="font-medium">Warning:</span> {{ session('warning') }}
+            </div>
+        </div>
+        @endif
+        {{-- Warning Alert --}}
+
         <div class="flex space-x-2 mt-4">
             <button type="button" data-modal-target="modal-upload" data-modal-toggle="modal-upload"
                 class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 border-2 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
@@ -125,15 +143,38 @@
                         <div class="px-6 py-6 lg:px-8">
                             <h3 class="mb-4 text-xl font-medium text-gray-900">Upload files
                             </h3>
-                            <form class="space-y-4" action="{{ route('upload', $folder->id) }}" method="POST"
+                            <form class="space-y-2" action="{{ route('upload', $folder->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
+                                <label for="file_input1" class="block text-sm font-medium text-gray-900">File 1</label>
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
-                                    aria-describedby="file_input_help" id="file_input" name="file_input" type="file"
+                                    aria-describedby="file_input1_help" id="file_input1" name="file_input1" type="file"
                                     required>
-                                <p class="text-sm text-gray-500" id="file_input_help">File type: PDF, Word, Excel,
+
+                                <label for="file_input2" class="block text-sm font-medium text-gray-900">File 2</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
+                                    aria-describedby="file_input2_help" id="file_input2" name="file_input2" type="file">
+
+                                <label for="file_input3" class="block text-sm font-medium text-gray-900">File 3</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
+                                    aria-describedby="file_input3_help" id="file_input3" name="file_input3" type="file">
+
+                                <label for="file_input4" class="block text-sm font-medium text-gray-900">File 4</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
+                                    aria-describedby="file_input4_help" id="file_input4" name="file_input4" type="file">
+
+                                <label for="file_input5" class="block text-sm font-medium text-gray-900">File 5</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
+                                    aria-describedby="file_input5_help" id="file_input5" name="file_input5" type="file">
+
+                                <p class="text-sm mt-4 text-gray-500" id="file_input2_help">File type: PDF, Word, Excel,
                                     Image, Video</p>
+
 
                                 <button type="submit"
                                     class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Submit</button>

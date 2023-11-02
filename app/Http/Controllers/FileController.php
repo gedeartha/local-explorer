@@ -32,8 +32,12 @@ class FileController extends Controller
 
     public function upload(Request $request, $id)
     {
-        if ($request->file_input != null) {
 
+        $fileSuccess = [];
+        $fileError = [];
+
+        if ($request->file_input1 != null) {
+            
             $folder = DB::table('folders')
                 ->where('id', $id)
                 ->first();
@@ -45,53 +49,328 @@ class FileController extends Controller
             $randomNumber = random_int(1000, 9999);
 
             // Upload file
-            $file = $request->file('file_input');
-            $fileNameExt = $file->getClientOriginalName();
-            $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
-            // $fileNameDate = pathinfo($fileNameExt, PATHINFO_FILENAME).' - '.date('H:i:s d-m-Y');
-            $fileType = $file->getClientOriginalExtension();
-            $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
+            $file = $request->file('file_input1');
 
-            $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
+            // dd($file->getSize());
 
-            $file->storeAs($save_as, $fileNameSave);
+            // if max file > 200 MB
+            if ($file->getSize() > 200000000) {
+                $fileError[0] = 1;
+            } else {
+                $fileSuccess[0] = 1;
 
-            // Save
-            $post = File::create([
-                'document_id' => $document->id,
-                'document_name' => $document->document,
-                'folder_id' => $id,
-                'folder_name' => $folder->folder_name,
-                'files_name' => $fileName,
-                'files_type' => $fileType,
-            ]);
+                $fileNameExt = $file->getClientOriginalName();
+                $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
+                $fileType = $file->getClientOriginalExtension();
 
-            $total_files = DB::table('files')
-                ->where('document_id', $document->id)
-                ->where('folder_id', $id)
-                ->count();
+                $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
 
-            $update = DB::table('folders')
-                ->where('id', $id)
-                ->update([
-                    'total_files' => $total_files,
-                    'updated_at' =>now(),
+                $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
+
+                $file->storeAs($save_as, $fileNameSave);
+
+                // Save
+                $post = File::create([
+                    'document_id' => $document->id,
+                    'document_name' => $document->document,
+                    'folder_id' => $id,
+                    'folder_name' => $folder->folder_name,
+                    'files_name' => $fileName,
+                    'files_type' => $fileType,
                 ]);
 
-            $update = DB::table('documents')
-                ->where('id', $document->id)
-                ->update([
-                    'total_files' => $total_files,
-                    'updated_at' =>now(),
-                ]);
+                $total_files = DB::table('files')
+                    ->where('document_id', $document->id)
+                    ->where('folder_id', $id)
+                    ->count();
 
+                $update = DB::table('folders')
+                    ->where('id', $id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+
+                $update = DB::table('documents')
+                    ->where('id', $document->id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+                
+            }
         }
 
-        return back()
-        ->withInput()
-        ->with([
-                'success' => 'Your files have been uploaded succeccfully'
-        ]);
+        if ($request->file_input2 != null) {
+            
+            $folder = DB::table('folders')
+                ->where('id', $id)
+                ->first();
+            
+            $document = DB::table('documents')
+                ->where('id', $folder->document_id)
+                ->first();
+
+            $randomNumber = random_int(1000, 9999);
+
+            // Upload file
+            $file = $request->file('file_input2');
+            
+            // if max file > 200 MB
+            if ($file->getSize() > 200000000) {
+                $fileError[1] = 2;
+            } else {
+                $fileSuccess[1] = 2;
+
+                $fileNameExt = $file->getClientOriginalName();
+                $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
+                $fileType = $file->getClientOriginalExtension();
+
+                $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
+
+                $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
+
+                $file->storeAs($save_as, $fileNameSave);
+
+                // Save
+                $post = File::create([
+                    'document_id' => $document->id,
+                    'document_name' => $document->document,
+                    'folder_id' => $id,
+                    'folder_name' => $folder->folder_name,
+                    'files_name' => $fileName,
+                    'files_type' => $fileType,
+                ]);
+
+                $total_files = DB::table('files')
+                    ->where('document_id', $document->id)
+                    ->where('folder_id', $id)
+                    ->count();
+
+                $update = DB::table('folders')
+                    ->where('id', $id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+
+                $update = DB::table('documents')
+                    ->where('id', $document->id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+                
+            }
+        }
+        
+        if ($request->file_input3 != null) {
+            
+            $folder = DB::table('folders')
+                ->where('id', $id)
+                ->first();
+            
+            $document = DB::table('documents')
+                ->where('id', $folder->document_id)
+                ->first();
+
+            $randomNumber = random_int(1000, 9999);
+
+            // Upload file
+            $file = $request->file('file_input3');
+            
+            // if max file > 200 MB
+            if ($file->getSize() > 200000000) {
+                $fileError[2] = 3;
+            } else {
+                $fileSuccess[2] = 3;
+
+                $fileNameExt = $file->getClientOriginalName();
+                $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
+                $fileType = $file->getClientOriginalExtension();
+
+                $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
+
+                $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
+
+                $file->storeAs($save_as, $fileNameSave);
+
+                // Save
+                $post = File::create([
+                    'document_id' => $document->id,
+                    'document_name' => $document->document,
+                    'folder_id' => $id,
+                    'folder_name' => $folder->folder_name,
+                    'files_name' => $fileName,
+                    'files_type' => $fileType,
+                ]);
+
+                $total_files = DB::table('files')
+                    ->where('document_id', $document->id)
+                    ->where('folder_id', $id)
+                    ->count();
+
+                $update = DB::table('folders')
+                    ->where('id', $id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+
+                $update = DB::table('documents')
+                    ->where('id', $document->id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+                
+            }
+        }
+        
+        if ($request->file_input4 != null) {
+            
+            $folder = DB::table('folders')
+                ->where('id', $id)
+                ->first();
+            
+            $document = DB::table('documents')
+                ->where('id', $folder->document_id)
+                ->first();
+
+            $randomNumber = random_int(1000, 9999);
+
+            // Upload file
+            $file = $request->file('file_input4');
+            
+            // if max file > 200 MB
+            if ($file->getSize() > 200000000) {
+                $fileError[3] = 4;
+            } else {
+                $fileSuccess[3] = 4;
+
+                $fileNameExt = $file->getClientOriginalName();
+                $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
+                $fileType = $file->getClientOriginalExtension();
+
+                $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
+
+                $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
+
+                $file->storeAs($save_as, $fileNameSave);
+
+                // Save
+                $post = File::create([
+                    'document_id' => $document->id,
+                    'document_name' => $document->document,
+                    'folder_id' => $id,
+                    'folder_name' => $folder->folder_name,
+                    'files_name' => $fileName,
+                    'files_type' => $fileType,
+                ]);
+
+                $total_files = DB::table('files')
+                    ->where('document_id', $document->id)
+                    ->where('folder_id', $id)
+                    ->count();
+
+                $update = DB::table('folders')
+                    ->where('id', $id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+
+                $update = DB::table('documents')
+                    ->where('id', $document->id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+                
+            }
+        }
+        
+        if ($request->file_input5 != null) {
+            
+            $folder = DB::table('folders')
+                ->where('id', $id)
+                ->first();
+            
+            $document = DB::table('documents')
+                ->where('id', $folder->document_id)
+                ->first();
+
+            $randomNumber = random_int(1000, 9999);
+
+            // Upload file
+            $file = $request->file('file_input5');
+            
+            // if max file > 200 MB
+            if ($file->getSize() > 200000000) {
+                $fileError[4] = 5;
+            } else {
+                $fileSuccess[4] = 5;
+
+                $fileNameExt = $file->getClientOriginalName();
+                $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME) . '_'.$randomNumber;
+                $fileType = $file->getClientOriginalExtension();
+
+                $fileNameSave = pathinfo($fileNameExt, PATHINFO_FILENAME).'_'.$randomNumber.'.'.$fileType;
+
+                $save_as = 'documents/'.$folder->document_name.'/'.$folder->folder_name.'/';
+
+                $file->storeAs($save_as, $fileNameSave);
+
+                // Save
+                $post = File::create([
+                    'document_id' => $document->id,
+                    'document_name' => $document->document,
+                    'folder_id' => $id,
+                    'folder_name' => $folder->folder_name,
+                    'files_name' => $fileName,
+                    'files_type' => $fileType,
+                ]);
+
+                $total_files = DB::table('files')
+                    ->where('document_id', $document->id)
+                    ->where('folder_id', $id)
+                    ->count();
+
+                $update = DB::table('folders')
+                    ->where('id', $id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+
+                $update = DB::table('documents')
+                    ->where('id', $document->id)
+                    ->update([
+                        'total_files' => $total_files,
+                        'updated_at' =>now(),
+                    ]);
+                
+            }
+        }
+
+        $getSuccessFile = implode(',', $fileSuccess);
+        $getErrorFile = implode(',', $fileError);
+        
+        if (count($fileError) > 0) {
+            return back()
+            ->withInput()
+            ->with([
+                'success' => 'Files: '.$getSuccessFile.' have been uploaded successfully',
+                'warning' => 'Failed to upload files: '.$getErrorFile.'! (limit file size)'
+            ]);
+        } else {
+            return back()
+            ->withInput()
+            ->with([
+                'success' => 'Files: '.$getSuccessFile.' have been uploaded successfully',
+            ]);
+        }
+
     }
 
     public function download($id)
